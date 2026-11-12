@@ -383,7 +383,7 @@
     const grouped = cat === 'all' && !concern && sort === 'featured';
     const qs = s => `?sort=${s}`;
     const base = `#/shop/${cat}${concern ? '/' + concern : ''}`;
-    const toolbar = `<div class="toolbar">
+    const toolbar = `<div class="tb-anchor" aria-hidden="true"></div><div class="toolbar">
           <div class="chips" role="tablist">
             <a class="chip ${cat === 'all' ? 'on' : ''}" href="#/shop${concern ? '/all/' + concern : ''}">${t('mega.all')}</a>
             ${VT.categories.map(c => `<a class="chip ${cat === c ? 'on' : ''}" href="#/shop/${c}${concern ? '/' + concern : ''}">${catLabel(c)}</a>`).join('')}
@@ -811,11 +811,16 @@
   };
   let lastPath = '';
   let coDraft = null;
+  let keepToolbar = false;
   const render = () => {
     const prev = route; route = parse();
     const fn = views[route.name] || V.notfound;
     const out = fn(...route.params) || {};
     const main = $('#main');
+    // filters / sort: keep the filter bar where the visitor left it
+    const oldAnchor = keepToolbar && route.name === 'shop' && prev.name === 'shop' ? $('.tb-anchor', main) : null;
+    const anchorDelta = oldAnchor ? oldAnchor.getBoundingClientRect().top : null;
+    keepToolbar = false;
     const oldForm = $('form[data-form="checkout"]', main);
     if (oldForm) { coDraft = {}; $$('input,select', oldForm).forEach(i => { if (!i.name || i.type === 'radio') return; coDraft[i.name] = i.type === 'checkbox' ? i.checked : i.value; }); }
     main.innerHTML = `<div class="view">${out.html || ''}</div>`;
@@ -829,7 +834,12 @@
     document.title = (out.title || titles[route.name] || 'Vertigo') + (route.name === 'home' ? '' : ' · Vertigo');
     renderHeader();
     const path = location.hash.split('?')[0];
-    if (path !== lastPath || prev.name !== route.name) window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+    const newAnchor = $('.tb-anchor', main);
+    if (anchorDelta !== null && newAnchor) {
+      const stickTop = parseInt(getComputedStyle($('.toolbar', main)).top) || 72;
+      const absTop = newAnchor.getBoundingClientRect().top + scrollY;
+      window.scrollTo({ top: Math.max(0, anchorDelta < stickTop ? absTop - stickTop : absTop - anchorDelta), behavior: 'instant' });
+    } else if (path !== lastPath || prev.name !== route.name) window.scrollTo({ top: 0, behavior: 'instant' });
     lastPath = path;
     closeOverlays();
     onScroll(); observeReveal();
@@ -1027,6 +1037,7 @@
   PROMOS.ROUTINE10 = { pct: 10 };
 
   document.addEventListener('click', e => {
+    if (e.target.closest('.toolbar a')) { keepToolbar = true; setTimeout(() => { keepToolbar = false; }, 600); }
     const el = e.target.closest('[data-act]');
     if (el && actions[el.dataset.act]) { if (el.type !== 'checkbox' && el.type !== 'radio') { } actions[el.dataset.act](e, el); }
     if (!e.target.closest('#regionPop') && !e.target.closest('[data-act="region"]')) $('#regionPop')?.classList.remove('open');
@@ -1037,7 +1048,7 @@
   document.addEventListener('change', e => {
     const el = e.target;
     if (el.matches('#regionSelect, [data-region-select]')) { S.region = el.value; store.set('region', S.region); rerenderAll(); toast(t('toast.region', { r: esc(regionName(S.region)), c: cur() })); }
-    if (el.matches('select[data-nav]')) location.hash = el.value;
+    if (el.matches('select[data-nav]')) { keepToolbar = true; location.hash = el.value; }
     if (el.matches('[data-qty-i]')) setQty(+el.dataset.qtyI, parseInt(el.value) || 0);
   });
   document.addEventListener('input', e => {
