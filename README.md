@@ -1,49 +1,27 @@
-# Vertigo · Seoul skincare e-commerce
+# Vertigo
 
-Static, fully functional e-commerce storefront for **Vertigo**, a premium Korean skincare brand.
-No build step, no backend: plain HTML / CSS / vanilla JS, ready for **GitHub Pages**.
+**Voir le site : https://7skyfe.github.io/vertigo/**
 
-## Features
-- **5 languages**: English (default), Français, Español, 日本語, 中文 · UI, product sheets, pages, FAQ.
-- **11 shipping regions / 7 currencies** (EUR, USD, GBP, CAD, JPY, CNY, KRW) with localised price formatting and shipping rules.
-- **Light / dark mode** (follows the system, toggle in the header).
-- **Catalogue**: 18 products (serums, creams, SPF, cleanser, lip oil, gift sets, e-gift card), filters by category & concern, sorting, search.
-- **Product pages**: gallery + zoom, key ingredients, full INCI, how-to, shipping accordion, reviews (with review form), cross-sell.
-- **Bag**: drawer with quantity, free-shipping progress bar, gift wrapping, recommendations.
-- **Checkout**: contact, address, delivery method, card validation (Luhn/expiry/CVC), PayPal/Apple Pay options, promo codes, gift card codes, order confirmation with tracking timeline.
-- **Account**: sign-up / log-in, order history, profile & address, *Vertigo Circle* loyalty points.
-- **Favourites**, order tracking, contact form, newsletter, cookie banner, legal pages.
-- Routines page with Korean morning / evening / sensitive routines ("add whole routine" −10 %) and a skin-type quiz.
+Vertigo, c'est une marque de skincare coréenne que j'ai inventée pour un projet d'école en UI/UX design.
 
-> All data (cart, accounts, orders) is stored in the visitor's browser (`localStorage`). No real payment is taken -
-> use test card `4242 4242 4242 4242`, any future date, any CVC.
+À la base, le projet s'arrêtait à la maquette : le logo, la direction artistique, les étiquettes des produits et les écrans du site. Mais une maquette reste figée. J'avais envie de voir ce que ça donnait vraiment une fois en ligne, de pouvoir cliquer partout, ajouter un produit au panier et passer en mode sombre.
 
-Promo codes: `BLACKFRIDAY` (−20 %), `WELCOME10` (−10 %), `FREESHIP`.
+Je suis designer UI et graphiste, pas développeur. Pour passer de la maquette au vrai site, je me suis aidé de Claude Code. J'ai gardé la main sur le design : les couleurs, la typo, la mise en page et les choix visuels viennent de mes maquettes. Le code a été écrit avec l'IA, et j'ai corrigé et ajusté au fur et à mesure.
 
-## Run locally
-```bash
-python3 -m http.server 8080
-```
-then open http://localhost:8080.
+Le site est fonctionnel de bout en bout : catalogue, fiches produits, panier, favoris, création de compte, paiement (fictif), mode sombre, et cinq langues (anglais, français, espagnol, japonais, chinois).
 
-## Deploy on GitHub Pages
-Settings → Pages → *Deploy from a branch* → select the branch and `/ (root)`.
-Routing uses URL hashes (`#/product/...`), so no server configuration is needed.
+C'est un projet de démonstration. Aucun produit n'est vraiment en vente et aucun paiement n'est encaissé.
 
-## Structure
-```
-index.html                 app shell
-assets/css/style.css       design system (tokens from the original mockups)
-assets/js/data.js          product catalogue (5 languages)
-assets/js/i18n.js          interface strings
-assets/js/content.js       routines, reviews, about, FAQ, legal pages
-assets/js/app.js           router, cart, checkout, account, search…
-assets/img/products/       packshots (labels redesigned in English + Hangul)
-assets/img/heroes/         hero visuals (desktop / tablet / mobile crops)
-assets/img/brand/          vector logo, mark, favicons, social image
-```
+---
 
-## Editing
-- **Prices / products**: `assets/js/data.js` (prices are in EUR, converted automatically).
-- **Texts**: `assets/js/i18n.js` and `assets/js/content.js` · English is the fallback for any missing key.
-- **Colours**: CSS variables at the top of `assets/css/style.css` (`--bg`, `--ink`, `--gold`…).
+### English
+
+Vertigo is a fictional Korean skincare brand I created for a UI/UX design school project.
+
+The assignment ended with the mockups. I wanted to see how the design would actually feel live, so I turned it into a working website with the help of Claude Code. I'm a UI designer and graphic designer, not a developer: the design choices are mine, the code was written with AI.
+
+Demo project only: nothing is for sale and no payment is taken.
+
+---
+
+<sub>Pour lancer le site en local : `python3 -m http.server 8080` dans le dossier, puis ouvrir http://localhost:8080. Carte de test : 4242 4242 4242 4242.</sub>
