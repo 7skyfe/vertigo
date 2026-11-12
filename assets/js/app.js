@@ -360,7 +360,18 @@
       </section>` };
   };
 
+  const IMG = 'assets/img/products/';
+  const CAT_VISUAL = {
+    serums: IMG + 'hydra-glow-serum-detail.webp', creams: IMG + 'velvet-lavender-cream-detail.webp', sun: IMG + 'velvet-sun-cream-detail.webp',
+    cleansers: IMG + 'lavender-cleansing-bar.webp', lips: IMG + 'rose-lip-oil-detail.webp', sets: IMG + 'glow-ritual-set.webp', gift: IMG + 'gift-card.webp'
+  };
+  const CONCERN_VISUAL = {
+    hydration: IMG + 'deep-blue-serum-detail.webp', radiance: IMG + 'vitamin-glow-serum-detail.webp', soothing: IMG + 'hydra-green-serum-detail.webp',
+    firming: IMG + 'red-velvet-serum-detail.webp', protection: IMG + 'velvet-sun-cream-detail.webp'
+  };
   V.shop = (cat = 'all', concern = null) => {
+    if (cat !== 'all' && !VT.categories.includes(cat)) return V.notfound();
+    if (concern && !VT.concerns.includes(concern)) return V.notfound();
     const sort = route.query.sort || 'featured';
     let list = products.filter(p => (cat === 'all' || p.cat === cat) && (!concern || p.concerns.includes(concern)));
     const sorters = {
@@ -372,11 +383,7 @@
     const grouped = cat === 'all' && !concern && sort === 'featured';
     const qs = s => `?sort=${s}`;
     const base = `#/shop/${cat}${concern ? '/' + concern : ''}`;
-    return { hero: true, html: `
-      ${hero('hero-products', t('shop.h1'), t('shop.sub'))}
-      <div class="container">
-        <p class="values center reveal"><span>${t('shop.values1')}</span> ${t('shop.values2')}</p>
-        <div class="toolbar">
+    const toolbar = `<div class="toolbar">
           <div class="chips" role="tablist">
             <a class="chip ${cat === 'all' ? 'on' : ''}" href="#/shop${concern ? '/all/' + concern : ''}">${t('mega.all')}</a>
             ${VT.categories.map(c => `<a class="chip ${cat === c ? 'on' : ''}" href="#/shop/${c}${concern ? '/' + concern : ''}">${catLabel(c)}</a>`).join('')}
@@ -390,7 +397,40 @@
               ${['featured', 'rating', 'new', 'price-asc', 'price-desc'].map(s => `<option value="${base}${qs(s)}" ${sort === s ? 'selected' : ''}>${t('sort.' + s)}</option>`).join('')}
             </select>
           </div>
-        </div>
+        </div>`;
+
+    /* ----- dedicated category / concern page ----- */
+    if (cat !== 'all' || concern) {
+      const title = cat !== 'all' ? t('shopcat.' + cat) : t('concern.' + concern);
+      const text = cat !== 'all' ? t('shopcat.' + cat + '.text') : t('shop.concernText');
+      const visual = cat !== 'all' ? CAT_VISUAL[cat] : CONCERN_VISUAL[concern];
+      const others = VT.categories.filter(c => c !== cat);
+      document.title = title + ' · Vertigo';
+      return { title, html: `
+      <div class="container">
+        <nav class="breadcrumbs" aria-label="breadcrumb"><a href="#/">${t('nav.home')}</a>/<a href="#/shop">${t('nav.products')}</a>/<span>${esc(cat !== 'all' ? catLabel(cat) : t('concern.' + concern))}</span>${cat !== 'all' && concern ? `/<span>${t('concern.' + concern)}</span>` : ''}</nav>
+        <section class="cat-hero">
+          <div>
+            <p class="eyebrow">${t('shop.count', { n: list.length })}${cat !== 'all' && concern ? ' · ' + t('concern.' + concern) : ''}</p>
+            <h1 class="mega-title">${title}</h1>
+            <p class="lead">${text}</p>
+          </div>
+          <div class="cat-visual"><img src="${visual}" alt="" fetchpriority="high"></div>
+        </section>
+        ${toolbar}
+        ${list.length ? `<div class="grid g3">${list.map(p => card(p)).join('')}</div>` : `<div class="empty">${t('shop.none')}<br><a class="btn" href="#/shop/${cat}">${t('shop.allConcerns')}</a></div>`}
+        <hr class="rule" style="margin-top:64px">
+        <h2 class="mega-title reveal" style="font-size:clamp(30px,4vw,56px);margin:56px 0 30px">${t('shop.other')}</h2>
+        <div class="cat-tiles">${others.map(c => `<a class="reveal" href="#/shop/${c}"><img src="${CAT_VISUAL[c].replace('.webp', '-sm.webp').replace('-detail-sm', '-detail-sm')}" alt="" loading="lazy"><span>${catLabel(c)}</span></a>`).join('')}</div>
+        <hr class="rule" style="margin-top:64px">
+      </div>` };
+    }
+
+    return { hero: true, html: `
+      ${hero('hero-products', t('shop.h1'), t('shop.sub'))}
+      <div class="container">
+        <p class="values center reveal"><span>${t('shop.values1')}</span> ${t('shop.values2')}</p>
+        ${toolbar}
         ${grouped ? VT.categories.map(c => {
           const items = list.filter(p => p.cat === c); if (!items.length) return '';
           return `<section class="cat-section" id="cat-${c}"><div class="cat-head"><h2 class="mega-title center reveal">${t('shopcat.' + c)}</h2><p class="lead center reveal">${t('shopcat.' + c + '.text')}</p></div>

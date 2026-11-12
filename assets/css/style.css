@@ -613,3 +613,20 @@ select option, select optgroup { background: var(--panel); color: var(--ink); }
 :root[data-theme="dark"] .card .tag { background: rgba(243,243,241,.85); }
 :root[data-theme="dark"] .gallery .thumbs button.on, :root[data-theme="dark"] .gallery .thumbs button:hover { border-color: var(--ink); }
 :root[data-theme="dark"] .cookie { box-shadow: 0 20px 50px rgba(0,0,0,.5); }
+
+/* ---------- Category / concern pages ---------- */
+.cat-hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 6%; align-items: center; padding: 26px 0 40px; }
+.cat-hero .eyebrow { margin: 0 0 14px; }
+.cat-hero .mega-title { animation: rise .9s var(--ease) both; }
+.cat-hero .lead { margin-top: 22px; }
+.cat-visual { aspect-ratio: 5 / 4; background: var(--card); overflow: hidden; }
+.cat-visual img { width: 100%; height: 100%; object-fit: cover; object-position: center 35%; animation: heroIn 1.4s var(--ease) both; }
+.cat-tiles { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+.cat-tiles a { display: block; font-size: 14px; font-weight: 500; }
+.cat-tiles img { aspect-ratio: 4 / 5; object-fit: cover; background: var(--card); width: 100%; margin-bottom: 10px; transition: transform .8s var(--ease); }
+.cat-tiles a:hover img { transform: scale(1.03); }
+.cat-tiles a:hover span { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 900px) {
+  .cat-hero { grid-template-columns: 1fr; gap: 26px; padding-top: 18px; }
+  .cat-tiles { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+}
