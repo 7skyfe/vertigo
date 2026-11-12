@@ -1,10 +1,10 @@
-# Vertigo — Seoul skincare e-commerce
+# Vertigo · Seoul skincare e-commerce
 
 Static, fully functional e-commerce storefront for **Vertigo**, a premium Korean skincare brand.
 No build step, no backend: plain HTML / CSS / vanilla JS, ready for **GitHub Pages**.
 
 ## Features
-- **5 languages**: English (default), Français, Español, 日本語, 中文 — UI, product sheets, pages, FAQ.
+- **5 languages**: English (default), Français, Español, 日本語, 中文 · UI, product sheets, pages, FAQ.
 - **11 shipping regions / 7 currencies** (EUR, USD, GBP, CAD, JPY, CNY, KRW) with localised price formatting and shipping rules.
 - **Light / dark mode** (follows the system, toggle in the header).
 - **Catalogue**: 18 products (serums, creams, SPF, cleanser, lip oil, gift sets, e-gift card), filters by category & concern, sorting, search.
@@ -15,7 +15,7 @@ No build step, no backend: plain HTML / CSS / vanilla JS, ready for **GitHub Pag
 - **Favourites**, order tracking, contact form, newsletter, cookie banner, legal pages.
 - Routines page with Korean morning / evening / sensitive routines ("add whole routine" −10 %) and a skin-type quiz.
 
-> All data (cart, accounts, orders) is stored in the visitor's browser (`localStorage`). No real payment is taken —
+> All data (cart, accounts, orders) is stored in the visitor's browser (`localStorage`). No real payment is taken -
 > use test card `4242 4242 4242 4242`, any future date, any CVC.
 
 Promo codes: `BLACKFRIDAY` (−20 %), `WELCOME10` (−10 %), `FREESHIP`.
@@ -45,5 +45,5 @@ assets/img/brand/          vector logo, mark, favicons, social image
 
 ## Editing
 - **Prices / products**: `assets/js/data.js` (prices are in EUR, converted automatically).
-- **Texts**: `assets/js/i18n.js` and `assets/js/content.js` — English is the fallback for any missing key.
+- **Texts**: `assets/js/i18n.js` and `assets/js/content.js` · English is the fallback for any missing key.
 - **Colours**: CSS variables at the top of `assets/css/style.css` (`--bg`, `--ink`, `--gold`…).

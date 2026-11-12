@@ -1,4 +1,4 @@
-/* Vertigo — storefront application (vanilla JS, hash router, localStorage persistence). */
+/* Vertigo · storefront application (vanilla JS, hash router, localStorage persistence). */
 (() => {
   'use strict';
   const VT = window.VT;
@@ -66,7 +66,6 @@
     close: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>`,
     chev: `<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>`,
     menu: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`,
-    sparkle: `<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M24 14c1 6 3 8 9 9-6 1-8 3-9 9-1-6-3-8-9-9 6-1 8-3 9-9z" fill="currentColor"/><path d="M14 4c.6 3.4 1.6 4.4 5 5-3.4.6-4.4 1.6-5 5-.6-3.4-1.6-4.4-5-5 3.4-.6 4.4-1.6 5-5zM30 2c.4 2 1 2.6 3 3-2 .4-2.6 1-3 3-.4-2-1-2.6-3-3 2-.4 2.6-1 3-3z" fill="currentColor"/></svg>`,
     truck: `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h12v10H2zM14 9h4l3 3v4h-7z"/><circle cx="6" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>`,
     leaf: `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 19c0-9 6-14 15-14 0 9-5 15-14 15"/><path d="M5 19l8-8"/></svg>`,
     gift: `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9h18v4H3zM5 13h14v8H5zM12 9v12M12 9c-2-4-6-4-6-1.5S10 9 12 9zm0 0c2-4 6-4 6-1.5S14 9 12 9z"/></svg>`,
@@ -93,7 +92,7 @@
     const alt = p.images[1] && !p.images[1].includes('heroes') ? p.images[1] : null;
     return `<article class="card reveal"><div class="mwrap">
       <a href="#/product/${p.slug}" class="media" aria-label="${esc(x.name)}">
-        <img class="main" src="${sm(p.images[0])}" alt="${esc(x.name)} — ${esc(x.sub)}" loading="lazy" width="600" height="750">
+        <img class="main" src="${sm(p.images[0])}" alt="${esc(x.name)} · ${esc(x.sub)}" loading="lazy" width="600" height="750">
         ${alt ? `<img class="alt" src="${sm(alt)}" alt="" loading="lazy">` : ''}
       </a>
       ${tag ? `<span class="tag">${tag}</span>` : ''}
@@ -166,7 +165,7 @@
         <a href="#/routines" class="${route.name === 'routines' ? 'active' : ''}">${t('nav.routines')}</a>
         <a href="#/about" class="${route.name === 'about' ? 'active' : ''}">${t('nav.about')}</a>
       </nav>
-      <a class="brand" href="#/" aria-label="Vertigo — ${t('nav.home')}"><span class="logo-mask"></span></a>
+      <a class="brand" href="#/" aria-label="Vertigo · ${t('nav.home')}"><span class="logo-mask"></span></a>
       <div class="tools">
         <button class="region-btn hide-sm" data-act="region" aria-haspopup="true">${esc(regionName(S.region).toUpperCase())} · ${S.lang.toUpperCase()} ${I.chev}</button>
         <a class="hlink hide-md" href="${S.user ? '#/account' : '#/login'}">${S.user ? t('nav.account') : t('nav.login')}</a>
@@ -195,7 +194,7 @@
         <div class="langs">${Object.entries(LANGS).map(([k, v]) => `<button data-act="lang" data-lang="${k}" class="${k === S.lang ? 'on' : ''}" lang="${k}">${v}</button>`).join('')}</div>
         <h4>${t('region.ship')}</h4>
         <div class="field" style="margin:0"><select id="regionSelect" aria-label="${t('region.ship')}">
-          ${Object.keys(REGIONS).sort((a, b) => regionName(a).localeCompare(regionName(b))).map(r => `<option value="${r}" ${r === S.region ? 'selected' : ''}>${esc(regionName(r))} — ${REGIONS[r].cur}</option>`).join('')}
+          ${Object.keys(REGIONS).sort((a, b) => regionName(a).localeCompare(regionName(b))).map(r => `<option value="${r}" ${r === S.region ? 'selected' : ''}>${esc(regionName(r))} · ${REGIONS[r].cur}</option>`).join('')}
         </select></div>
       </div>`;
     updateBadges();
@@ -216,7 +215,7 @@
         <div class="eyebrow" style="margin-bottom:10px">${t('region.lang')}</div>
         <div class="chips">${Object.entries(LANGS).map(([k, v]) => `<button class="chip ${k === S.lang ? 'on' : ''}" data-act="lang" data-lang="${k}">${v}</button>`).join('')}</div>
         <div class="eyebrow" style="margin:22px 0 10px">${t('region.ship')}</div>
-        <div class="field"><select data-region-select>${Object.keys(REGIONS).map(r => `<option value="${r}" ${r === S.region ? 'selected' : ''}>${esc(regionName(r))} — ${REGIONS[r].cur}</option>`).join('')}</select></div>
+        <div class="field"><select data-region-select>${Object.keys(REGIONS).map(r => `<option value="${r}" ${r === S.region ? 'selected' : ''}>${esc(regionName(r))} · ${REGIONS[r].cur}</option>`).join('')}</select></div>
         <button class="chip" data-act="theme" style="margin-top:6px">${S.theme === 'dark' ? t('theme.light') : t('theme.dark')}</button>
       </div>`;
     $('#mnav .pop')?.remove();
@@ -267,7 +266,7 @@
         <div class="sum-row"><span>${t('sum.subtotal')}</span><span>${fmt(T.sub)}</span></div>
         ${T.discount ? `<div class="sum-row discount"><span>${t('sum.discount')} (${T.promo})</span><span>−${fmt(T.discount)}</span></div>` : ''}
         ${T.wrap ? `<div class="sum-row"><span>${t('sum.giftwrap')}</span><span>${fmt(T.wrap)}</span></div>` : ''}
-        <div class="sum-row"><span>${t('sum.shipping')}</span><span>${T.physical ? (T.ship ? fmt(T.ship) : t('sum.free')) : '—'}</span></div>
+        <div class="sum-row"><span>${t('sum.shipping')}</span><span>${T.physical ? (T.ship ? fmt(T.ship) : t('sum.free')) : '-'}</span></div>
         <div class="sum-row total"><span>${t('sum.total')}</span><span>${fmt(T.total)}</span></div>
         <a class="btn block" href="#/checkout" data-act="close-cart">${t('cart.checkout')}</a>
       </div>` : ''}
@@ -313,7 +312,7 @@
         <p class="lead reveal" style="padding-left:2%;margin-bottom:70px">${t('home.classicsText')}</p>
         <div class="grid g3">${classics.map(p => card(p, { noTag: true })).join('')}</div>
         <hr class="rule" style="margin-top:56px">
-        <div class="cta-block reveal"><h3>${t('home.reveal')} ${I.sparkle}</h3><br><a class="btn" href="#/shop">${t('home.browse')}</a></div>
+        <div class="cta-block reveal"><h3>${t('home.reveal')}</h3><br><a class="btn" href="#/shop">${t('home.browse')}</a></div>
         <hr class="rule">
         <h2 class="mega-title center reveal" style="padding:56px 0 64px">${t('home.best')}</h2>
         <div class="grid g2">${best.map(p => card(p, { noTag: true })).join('')}</div>
@@ -347,7 +346,7 @@
       <section class="container section-pad">
         <hr class="rule">
         <div class="quotes reveal" style="padding-top:56px">
-          ${[1, 2, 3].map(i => `<blockquote>“${t('q' + i)}”<cite>${stars(5)} &nbsp;${t('q' + i + 'by')}</cite></blockquote>`).join('')}
+          ${[1, 2, 3].map(i => `<blockquote>“${t('q' + i)}”<cite>${t('q' + i + 'by')}</cite></blockquote>`).join('')}
         </div>
       </section>
       <section class="container" style="padding-bottom:30px">
@@ -411,7 +410,7 @@
     const amount = +(route.query.amount || (p.amounts ? p.price : 0));
     const related = p.pairs.map(P).filter(Boolean).slice(0, 4);
     const reviews = getReviews(p);
-    document.title = `${x.name} — Vertigo`;
+    document.title = `${x.name} · Vertigo`;
     return { html: `
       <div class="container">
         <nav class="breadcrumbs" aria-label="breadcrumb"><a href="#/">${t('nav.home')}</a>/<a href="#/shop/${p.cat}">${catLabel(p.cat)}</a>/<span>${esc(x.name)}</span></nav>
@@ -436,7 +435,7 @@
               ${p.amounts ? `<div class="amounts">${p.amounts.map(a => `<a class="chip ${a === amount ? 'on' : ''}" href="#/product/${p.slug}?amount=${a}">${money(a)}</a>`).join('')}</div>` : ''}
               <div class="buy-row">
                 <div class="qty"><button data-act="pqty" data-d="-1" aria-label="−">−</button><input id="pQty" value="1" inputmode="numeric" aria-label="${t('pdp.qty')}"><button data-act="pqty" data-d="1" aria-label="+">+</button></div>
-                <button class="btn" data-act="add-pdp" data-slug="${p.slug}" data-amount="${amount || ''}">${t('pdp.add')} — ${money(p.amounts ? amount : p.price)}</button>
+                <button class="btn" data-act="add-pdp" data-slug="${p.slug}" data-amount="${amount || ''}">${t('pdp.add')} · ${money(p.amounts ? amount : p.price)}</button>
               </div>
               ${p.compare ? `<div class="perks"><div>${I.gift} ${t('pdp.save', { p: money(p.compare - p.price) })}</div></div>` : ''}
               <div class="perks">
@@ -450,7 +449,7 @@
           <div class="acc">
             <details open><summary>${t('pdp.use')}</summary><div class="body">${esc(x.use)}</div></details>
             ${p.inci ? `<details><summary>${t('pdp.inci')}</summary><div class="body">${esc(p.inci)}<p class="muted" style="font-size:13px">${t('pdp.inciNote')}</p></div></details>` : ''}
-            ${p.includes ? `<details open><summary>${t('pdp.includes')}</summary><div class="body">${p.includes.map(s => `<a class="link" href="#/product/${s}">${esc(pt(P(s)).name)}</a> — ${money(P(s).price)}`).join('<br>')}</div></details>` : ''}
+            ${p.includes ? `<details open><summary>${t('pdp.includes')}</summary><div class="body">${p.includes.map(s => `<a class="link" href="#/product/${s}">${esc(pt(P(s)).name)}</a> · ${money(P(s).price)}`).join('<br>')}</div></details>` : ''}
             <details><summary>${t('pdp.shipTitle')}</summary><div class="body">${t('pdp.shipBody', { p: money(zone().free), s: money(zone().std), e: money(zone().exp) })}</div></details>
           </div>
           <div></div>
@@ -540,7 +539,7 @@
       <p class="lead reveal">${t('about.originsText')}</p>
       <div class="origins">${content('origins').map(([place, h, txt]) => `<div class="reveal"><b>${place}</b><div><h4>${h}</h4><p>${txt}</p></div></div>`).join('')}</div>
       <hr class="rule" style="margin-top:40px">
-      <div class="cta-block reveal" style="padding:64px 0"><h3>${t('home.reveal')} ${I.sparkle}</h3><br><a class="btn" href="#/shop">${t('home.browse')}</a></div>
+      <div class="cta-block reveal" style="padding:64px 0"><h3>${t('home.reveal')}</h3><br><a class="btn" href="#/shop">${t('home.browse')}</a></div>
       <hr class="rule">
     </div>` });
 
@@ -609,7 +608,7 @@
           </section>
           <section class="co-section">
             <label class="check"><input type="checkbox" name="terms" required> <span>${t('co.terms')}</span></label><span class="msg" style="color:var(--danger);font-size:12px" id="termsMsg"></span>
-            <button class="btn block" type="submit" style="margin-top:22px;text-transform:uppercase;font-size:18px">${t('co.place')} — ${fmt(T.total)}</button>
+            <button class="btn block" type="submit" style="margin-top:22px;text-transform:uppercase;font-size:18px">${t('co.place')} · ${fmt(T.total)}</button>
           </section>
         </div>
         <aside class="summary">
@@ -620,7 +619,7 @@
           <div class="sum-row"><span>${t('sum.subtotal')}</span><span>${fmt(T.sub)}</span></div>
           ${T.discount ? `<div class="sum-row discount"><span>${t('sum.discount')} (${T.promo})</span><span>−${fmt(T.discount)}</span></div>` : ''}
           ${T.wrap ? `<div class="sum-row"><span>${t('sum.giftwrap')}</span><span>${fmt(T.wrap)}</span></div>` : ''}
-          <div class="sum-row"><span>${t('sum.shipping')}</span><span>${T.physical ? (T.ship ? fmt(T.ship) : t('sum.free')) : '—'}</span></div>
+          <div class="sum-row"><span>${t('sum.shipping')}</span><span>${T.physical ? (T.ship ? fmt(T.ship) : t('sum.free')) : '-'}</span></div>
           ${T.gc ? `<div class="sum-row discount"><span>${t('sum.giftcard')}</span><span>−${fmt(T.gc)}</span></div>` : ''}
           <div class="sum-row total"><span>${t('sum.total')}</span><span>${fmt(T.total)}</span></div>
           <p class="muted" style="font-size:12px">${t('co.taxes')}</p>
@@ -787,7 +786,7 @@
     document.body.classList.toggle('hero-dark', !!out.heroDark);
     document.body.classList.toggle('tools-light', !!out.toolsLight);
     const titles = { home: t('meta.home'), shop: t('nav.products'), routines: t('nav.routines'), about: t('nav.about'), favorites: t('nav.favorites'), checkout: t('co.title'), login: t('auth.login'), register: t('auth.create'), account: t('nav.account'), contact: t('f.contact'), faq: 'FAQ', track: t('f.track') };
-    document.title = (out.title || titles[route.name] || 'Vertigo') + (route.name === 'home' ? '' : ' — Vertigo');
+    document.title = (out.title || titles[route.name] || 'Vertigo') + (route.name === 'home' ? '' : ' · Vertigo');
     renderHeader();
     const path = location.hash.split('?')[0];
     if (path !== lastPath || prev.name !== route.name) window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });

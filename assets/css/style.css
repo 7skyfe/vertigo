@@ -1,5 +1,5 @@
 /* ==========================================================
-   Vertigo — Seoul skincare. Design tokens taken from the mockups.
+   Vertigo · Seoul skincare. Design tokens taken from the mockups.
    ========================================================== */
 :root {
   --bg: #F9F6F2;
@@ -164,7 +164,6 @@ body.has-hero main { margin-top: -0px; }
 .link { text-decoration: underline; text-underline-offset: 3px; }
 .cta-block { text-align: center; padding: 48px 0; }
 .cta-block h3 { font-size: clamp(24px, 2.6vw, 36px); font-weight: 600; letter-spacing: -.02em; margin: 0 0 22px; display: inline-flex; align-items: flex-start; gap: 4px; }
-.cta-block h3 svg { width: 34px; height: 34px; color: var(--gold); margin-top: -14px; }
 
 /* ---------- Product grid & cards ---------- */
 .grid { display: grid; gap: 64px 44px; }
@@ -596,3 +595,21 @@ body.has-hero.tools-light .header:not(.solid) .tools .badge { color: #171717; ba
 .checkout > *, .pdp > *, .pdp-extra > *, .account > *, .contact-grid > *, .split > * { min-width: 0; }
 .promo input { min-width: 0; }
 .pay-icons { flex-wrap: wrap; }
+
+/* ---------- Mega menu: header takes the menu colour ---------- */
+.mega { border-top: 0; }
+.header:has(.mega.open) { background: var(--panel) !important; color: var(--ink) !important; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.header:has(.mega.open) .tools, .header:has(.mega.open) .nav, .header:has(.mega.open) .brand { color: var(--ink) !important; }
+.header:has(.mega.open) .tools .badge { background: var(--gold); color: #fff; }
+:root[data-theme="dark"] .header:has(.mega.open) .tools .badge { color: #171717; }
+.header.mega-on { background: var(--panel) !important; color: var(--ink) !important; }
+
+/* ---------- Dark / light consistency ---------- */
+select option, select optgroup { background: var(--panel); color: var(--ink); }
+:root[data-theme="dark"] select { color-scheme: dark; }
+:root[data-theme="dark"] .banner { background: #26211f; color: #FFF4E1; }
+:root[data-theme="dark"] .banner .eyebrow { color: #c9a96b !important; }
+:root[data-theme="dark"] .banner .btn { background: #FFF4E1; color: #171717; border-color: #FFF4E1; }
+:root[data-theme="dark"] .card .tag { background: rgba(243,243,241,.85); }
+:root[data-theme="dark"] .gallery .thumbs button.on, :root[data-theme="dark"] .gallery .thumbs button:hover { border-color: var(--ink); }
+:root[data-theme="dark"] .cookie { box-shadow: 0 20px 50px rgba(0,0,0,.5); }
